@@ -88,7 +88,8 @@ public class LoginServlet extends ChatServlet {
             }
             synchronized (messages){
                 ChatUser server = new ChatUser("server", 0,"");
-                
+                ChatMessage temp = new ChatMessage(aUser.getName()+" join to the chat", server, Calendar.getInstance().getTimeInMillis());
+                messages.add(temp);
             }
         }
         if (aUser.getSessionId().equals(sessionId) || aUser.getLastInteractionTime()<(Calendar.getInstance().getTimeInMillis()- sessionTimeout*1000)) {
