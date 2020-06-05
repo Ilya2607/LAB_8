@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import entity.ChatMessage;
 import entity.ChatUser;
 
 @WebServlet(name="LoginServlet")
@@ -83,6 +85,10 @@ public class LoginServlet extends ChatServlet {
             aUser = new ChatUser(name, Calendar.getInstance().getTimeInMillis(), sessionId);
             synchronized (activeUsers) {
                 activeUsers.put(aUser.getName(), aUser);
+            }
+            synchronized (messages){
+                ChatUser server = new ChatUser("server", 0,"");
+                
             }
         }
         if (aUser.getSessionId().equals(sessionId) || aUser.getLastInteractionTime()<(Calendar.getInstance().getTimeInMillis()- sessionTimeout*1000)) {
